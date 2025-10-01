@@ -1,194 +1,146 @@
-Linear Regression - Machine Learning
-🔹 Introduction
+# LinearRegression
 
-Linear Regression is one of the simplest and most widely used supervised machine learning algorithms. It is used to model the relationship between a dependent variable (target) and one or more independent variables (features) by fitting a straight line (in 2D) or a hyperplane (in higher dimensions).
+Linear Regression is a **supervised machine learning algorithm** used to predict a **continuous target variable** based on one or more features. It models the relationship between input features and the target using a linear equation.
 
-It is mainly used for predicting continuous values such as house prices, sales, salary, etc.
+---
 
-🔹 How It Works
+## 1. Definition
 
-The model assumes a linear relationship between input features and the output variable:
+Linear Regression predicts the target variable using a linear equation:
 
-𝑦
-=
-𝛽
-0
-+
-𝛽
-1
-𝑥
-1
-+
-𝛽
-2
-𝑥
-2
-+
-⋯
-+
-𝛽
-𝑛
-𝑥
-𝑛
-+
-𝜖
-y=β
-0
-	​
+**Simple Linear Regression**:
 
-+β
-1
-	​
+\[y = \beta_0 + \beta_1 x + \epsilon\]
 
-x
-1
-	​
+- `y`: Target variable  
+- `x`: Feature variable  
+- `β0`: Intercept  
+- `β1`: Coefficient (slope)  
+- `ε`: Error term  
 
-+β
-2
-	​
+**Multiple Linear Regression**:
 
-x
-2
-	​
+\[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n + \epsilon\]
 
-+⋯+β
-n
-	​
+---
 
-x
-n
-	​
+## 2. Assumptions
 
-+ϵ
+- **Linearity:** Relationship between features and target is linear.  
+- **Independence:** Observations are independent.  
+- **Homoscedasticity:** Errors have constant variance.  
+- **Normality:** Residuals are normally distributed.  
+- **No Multicollinearity:** Features should not be highly correlated.  
 
-Where:
+---
 
-𝑦
-y → Target variable (what we want to predict)
+## 3. Cost Function
 
-𝑥
-1
-,
-𝑥
-2
-,
-…
-,
-𝑥
-𝑛
-x
-1
-	​
+Linear Regression uses **Mean Squared Error (MSE)**:
 
-,x
-2
-	​
+\[MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2\]
 
-,…,x
-n
-	​
+Goal: **Minimize MSE** to find the best-fitting line.
 
- → Input features
 
-𝛽
-0
-β
-0
-	​
 
- → Intercept (constant)
+## 4. Optimization
 
-𝛽
-1
-,
-𝛽
-2
-,
-…
-𝛽
-𝑛
-β
-1
-	​
+- **Ordinary Least Squares (OLS):** Computes coefficients directly.  
+- **Gradient Descent:** Iteratively updates coefficients to minimize error.  
 
-,β
-2
-	​
+---
 
-,…β
-n
-	​
+## 5. Algorithm Steps
 
- → Coefficients (weights)
+1. Initialize coefficients (`β0, β1, ...`)  
+2. Compute predictions: `ŷi = β0 + Σ βj xij`  
+3. Calculate error: `ei = yi - ŷi`  
+4. Minimize error using OLS or Gradient Descent  
+5. Repeat (if using Gradient Descent) until convergence  
+6. Predict new data using final coefficients  
+7. Evaluate performance using MSE, RMSE, and R²
 
-𝜖
-ϵ → Error term
 
-🔹 Types of Linear Regression
+## Evaluation Metrics
+Mean Squared Error (MSE)
+Root Mean Squared Error (RMSE)
+Mean Absolute Error (MAE)
+R² Score
 
-Simple Linear Regression → Uses one feature to predict the target.
-Example: Predicting house price using only size.
+##  Advantages
+Simple and easy to understand
+Fast training and prediction
+Useful baseline for regression tasks
+Provides insight into feature importance
 
-Multiple Linear Regression → Uses multiple features.
-Example: Predicting house price using size, location, and number of rooms.
+## Limitations
+Works only for linear relationships
+Sensitive to outliers
+Assumptions must hold true
+Struggles with multicollinearity
 
-🔹 Loss Function
+## Real-Life Applications
+Predicting house prices
+Salary prediction based on experience
+Sales forecasting
+Stock market trend prediction
+Medical research
 
-The algorithm minimizes the Mean Squared Error (MSE):
+## Visualization
+Scatter plot shows actual data points.
+Regression line shows predicted trend.
+Helps visually check model fit.
 
-𝑀
-𝑆
-𝐸
-=
-1
-𝑛
-∑
-𝑖
-=
-1
-𝑛
-(
-𝑦
-𝑖
-−
-𝑦
-^
-𝑖
-)
-2
-MSE=
-n
-1
-	​
+## Summary
+LinearRegression is a simple yet powerful algorithm for predicting continuous values. It is interpretable, computationally efficient, and ideal for baseline models or quick insights.
 
-i=1
-∑
-n
-	​
+## Importing Libraries
+The code uses:
+pandas to create and handle the dataset.
+matplotlib.pyplot to plot the data and regression line.
+train_test_split to divide the dataset into training and testing sets.
+LinearRegression to create and train the model.
+mean_squared_error and r2_score to evaluate the model’s performance.
 
-(y
-i
-	​
+## Creating the Dataset
+The dataset contains two columns:
+Size → The area of the house (feature).
+Price → The price of the house (target).
+A pandas DataFrame is created with sample values for house sizes and prices.
 
-−
-y
-^
-	​
+## Defining Features and Target
+X represents the feature(s), which is Size of the house.
+y represents the target variable, which is Price.
+X must be 2D, while y is 1D.
 
-i
-	​
+## Splitting the Dataset
+The dataset is split into:
+Training set → 80% of data, used to train the model.
+Testing set → 20% of data, used to evaluate the model.
+random_state ensures the split is reproducible.
 
-)
-2
-🔹 Assumptions of Linear Regression
+## Training the Linear Regression Model
+A Linear Regression model is created.
+.fit() trains the model on the training data.
 
-Linearity → Relationship between X and y is linear.
+## During training, the model calculates:
+Intercept → Base house price when size = 0.
+Coefficient → How much the price increases per unit increase in size.
 
-Independence → Observations are independent of each other.
+## Making Predictions
+The trained model predicts house prices for the testing set.
+Predictions are stored and compared with actual prices.
 
-Homoscedasticity → Constant variance of residuals.
+## Evaluating the Model
+Intercept: Shows the base price of a house with size = 0.
+Coefficient: Indicates price increase per unit of size.
+Mean Squared Error (MSE): Measures average squared difference between predicted and actual prices.
+R² Score: Measures how well the model explains price variation; closer to 1 is better.
 
-Normality of Errors → Errors are normally distributed.
-
-No Multicollinearity → Independent variables should not be highly correlated.
+## Key Takeaways:
+Linear Regression fits a line that predicts house price from house size.
+Intercept = starting price when size = 0.
+Coefficient = price increase per unit of size.
+Evaluation metrics like MSE and R² show model accuracy.
+Visualization confirms how well predictions match actual prices
